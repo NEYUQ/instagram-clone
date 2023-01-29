@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_flutter/Utils/colors.dart';
+import 'package:instagram_flutter/widgets/text_field_input.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -8,6 +11,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passController = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _emailController.dispose();
+    _passController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,9 +32,85 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           width: double.infinity,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('1'),
-              Text('2'),
+              Flexible(
+                flex: 2,
+                child: Container(),
+              ),
+              //svg image
+              SvgPicture.asset(
+                'assets/ic_instagram.svg',
+                color: primaryColor,
+                height: 64,
+              ),
+              const SizedBox(
+                height: 64,
+              ),
+              //text field input for email
+              TextFieldInput(
+                textEditingController: _emailController,
+                hintText: "Enter your email",
+                textInputType: TextInputType.emailAddress,
+              ),
+
+              const SizedBox(
+                height: 24,
+              ),
+              //text field input for pass
+              TextFieldInput(
+                textEditingController: _passController,
+                hintText: "Enter your password",
+                textInputType: TextInputType.text,
+                isPassword: true,
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              InkWell(
+                child: Container(
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  decoration: const ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(4),
+                      ),
+                    ),
+                    color: blueColor,
+                  ),
+                  child: const Text('Log in'),
+                ),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              Flexible(
+                flex: 2,
+                child: Container(),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: const Text("Don't have an account?"),
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: const Text(
+                        "Sign up.",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
