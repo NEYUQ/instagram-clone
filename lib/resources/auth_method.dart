@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -28,7 +30,6 @@ class AuthMethod {
         print(cred.user!.uid);
         String strPhotoURL = await StorageMethods()
             .uploadImageToStorage('profilePics', file, false);
-        print(strPhotoURL);
         _firestore.collection('users').doc(cred.user!.uid).set({
           'username': username,
           'uid': cred.user!.uid,
@@ -38,6 +39,25 @@ class AuthMethod {
           'following': [],
           'photoUrl': strPhotoURL,
         });
+        res = 'success';
+      }
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+  //logging in user
+
+  Future<String> loginUser(
+      {required String email, required String password}) async {
+    String res = "some error";
+    try {
+      if (email.isNotEmpty && password.isNotEmpty) {
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        res = "success";
+      } else {
+        res = "please enter all fields";
       }
     } catch (err) {
       res = err.toString();
