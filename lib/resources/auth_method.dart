@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -10,8 +8,16 @@ class AuthMethod {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  //sign in  user
+  Future<model.User> getUserDetails() async {
+    User user = _auth.currentUser!;
 
+    DocumentSnapshot snap =
+        await _firestore.collection("users").doc(user.uid).get();
+
+    return model.User.fromSnap(snap);
+  }
+
+  //sign in  user
   Future<String> signUpUser({
     required String email,
     required String password,
