@@ -5,6 +5,8 @@ import 'package:instagram_flutter/Utils/colors.dart';
 import 'package:instagram_flutter/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../Utils/global_variable.dart';
+
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({super.key});
 
@@ -47,13 +49,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         onPageChanged: onPageChanged,
-        children: const [
-          Text("feed"),
-          Text("search"),
-          Text("add post"),
-          Text("notification"),
-          Text("profile"),
-        ],
+        children: homeScreenItems,
       ),
       bottomNavigationBar: CupertinoTabBar(
         backgroundColor: mobileBackgroundColor,
