@@ -20,6 +20,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   Uint8List? _file;
   final _desciptionController = TextEditingController();
   bool _isloading = false;
+  
   void postImage(
     String uid,
     String username,
